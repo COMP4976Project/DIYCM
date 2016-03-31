@@ -305,6 +305,38 @@ namespace DiyCmDataModel.Construction
                     PercentDiscount = 5,
                     notes = "A quote for plumbing"
                 });
+                db.QuoteHeaders.Add(new QuoteHeader()
+                {
+                    QuoteHeaderId = 12346,
+                    Supplier = "Ideal Homes",
+                    StartDate = new DateTime(2016, 6, 18),
+                    ContactName = "Ching Chong",
+                    PhoneNumber = "(604)888-8888",
+                    ReferredBy = "Joe",
+                    AddressStreet = "1208 Cambie Street",
+                    AddressCity = "Richmond",
+                    AddressProvince = "BC",
+                    AddressPostalCode = "V4R 6S7",
+                    ExpiryDate = new DateTime(2016, 3, 1),
+                    PercentDiscount = 5,
+                    notes = "A quote for home renovation"
+                });
+                db.QuoteHeaders.Add(new QuoteHeader()
+                {
+                    QuoteHeaderId = 12347,
+                    Supplier = "John's Plumbing",
+                    StartDate = new DateTime(2016, 9, 21),
+                    ContactName = "John Smith",
+                    PhoneNumber = "(604)555-5254",
+                    ReferredBy = "Billy",
+                    AddressStreet = "123 Main Street",
+                    AddressCity = "Surrey",
+                    AddressProvince = "BC",
+                    AddressPostalCode = "V3L 3M3",
+                    ExpiryDate = new DateTime(2016, 4, 8),
+                    PercentDiscount = 5,
+                    notes = "A quote for plumbing - bathtub"
+                });
 
                 db.SaveChanges();
             }
@@ -354,17 +386,167 @@ namespace DiyCmDataModel.Construction
                     Notes = "Special for glass sink",
                 });
 
+                db.QuoteDetails.Add(new QuoteDetail()
+                {
+                    QuoteDetailId = 4,
+                    QuoteHeaderId = 12346,
+                    PartId = "87166",
+                    PartDescription = "Bathroom trimming",
+                    CategoryId = 170,
+                    SubCategoryId = 70,
+                    AreaId = 3,
+                    UnitPrice = 400.00M,
+                    Notes = "Gold color",
+                });
+
+                db.QuoteDetails.Add(new QuoteDetail()
+                {
+                    QuoteDetailId = 5,
+                    QuoteHeaderId = 12346,
+                    PartId = "13456",
+                    PartDescription = "Metal drain",
+                    CategoryId = 170,
+                    SubCategoryId = 80,
+                    AreaId = 1,
+                    UnitPrice = 200.00M,
+                    Notes = "",
+                });
+
+                db.QuoteDetails.Add(new QuoteDetail()
+                {
+                    QuoteDetailId = 6,
+                    QuoteHeaderId = 12346,
+                    PartId = "5SL78",
+                    PartDescription = "Chisel",
+                    CategoryId = 170,
+                    SubCategoryId = 10,
+                    AreaId = 1,
+                    UnitPrice = 10.00M,
+                    Notes = "For kitchen trimming works",
+                });
+                db.QuoteDetails.Add(new QuoteDetail()
+                {
+                    QuoteDetailId = 7,
+                    QuoteHeaderId = 12347,
+                    PartId = "32542",
+                    PartDescription = "Bathroom Lavatory Faucet",
+                    CategoryId = 170,
+                    SubCategoryId = 20,
+                    AreaId = 3,
+                    UnitPrice = 175.00M,
+                    Notes = "Silver color",
+                });
+
+                db.QuoteDetails.Add(new QuoteDetail()
+                {
+                    QuoteDetailId = 8,
+                    QuoteHeaderId = 12347,
+                    PartId = "65461",
+                    PartDescription = "Drain",
+                    CategoryId = 170,
+                    SubCategoryId = 80,
+                    AreaId = 3,
+                    UnitPrice = 600.00M,
+                    Notes = "High drainage rate for shower",
+                });
+
+                db.QuoteDetails.Add(new QuoteDetail()
+                {
+                    QuoteDetailId = 9,
+                    QuoteHeaderId = 12347,
+                    PartId = "3DI34",
+                    PartDescription = "Drain Stopper",
+                    CategoryId = 170,
+                    SubCategoryId = 80,
+                    AreaId = 3,
+                    UnitPrice = 85.00M,
+                    Notes = "Universal, rubber",
+                });
+
                 db.SaveChanges();
             }
         }
 
         
         public static void InitializeSupplierInvoiceDetails(DiyCmContext db) {
+			db.SupplierInvoiceDetails.Add(new SupplierInvoiceDetail()
+			{
+				InvoiceId = 1,
+				LineNumber = ,
+				PartNumber = ,
+				PartDescription = ,
+				CategoryId = ,
+				Category = ,
+				SubCategoryId = ,
+				AreaId = ,
+				Area = ,
+				Quantity = ,
+				UnitPrice = ,
+				Notes = "testing 123",
+			});
 
+			db.SaveChanges();
         }
 
         public static void InitializeSupplierInvoiceHeaders(DiyCmContext db) {
+			db.SupplierInvoiceHeaders.Add(new SupplierInvoiceHeader()
+			{
+				InvoiceId = 1,
+				SupplierName = ,
+				QuoteHeaderId = ,
+				Date = ,
+				ContactName = ,
+				PhoneNumber = ,
+				ReferredBy = ,
+				AddressCity = ,
+				AddressProvince = ,
+				AddressPostalCode = ,
+				AddressCountry = ,
+				AmountPaid = "N",
+				PaymentDate = ,
+				SH_Amount = ,
+				SH_Amount_Paid = ,
+			});
+			
+			db.SupplierInvoiceHeaders.Add(new SupplierInvoiceHeader()
+			{
+				InvoiceId = 2,
+				SupplierName = ,
+				QuoteHeaderId = ,
+				Date = ,
+				ContactName = ,
+				PhoneNumber = ,
+				ReferredBy = ,
+				AddressCity = ,
+				AddressProvince = ,
+				AddressPostalCode = ,
+				AddressCountry = ,
+				AmountPaid = "N",
+				PaymentDate = ,
+				SH_Amount = ,
+				SH_Amount_Paid = ,
+			});
+			
+			db.SupplierInvoiceHeaders.Add(new SupplierInvoiceHeader()
+			{
+				InvoiceId = 3,
+				SupplierName = ,
+				QuoteHeaderId = ,
+				Date = ,
+				ContactName = ,
+				PhoneNumber = ,
+				ReferredBy = ,
+				AddressCity = ,
+				AddressProvince = ,
+				AddressPostalCode = ,
+				AddressCountry = ,
+				AmountPaid = "N",
+				PaymentDate = ,
+				SH_Amount = ,
+				SH_Amount_Paid = ,
+			});
 
+			db.SaveChanges();
         }
     }
 }
