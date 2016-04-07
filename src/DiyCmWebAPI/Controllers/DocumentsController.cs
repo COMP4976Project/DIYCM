@@ -28,15 +28,15 @@ namespace DiyCmWebAPI.Controllers
         }
 
         // GET: api/Documents/5
-        [HttpGet("{id}", Name = "GetDocument")]
-        public IActionResult GetDocument([FromRoute] int id)
+        [HttpGet("{id}.{type}", Name = "GetDocument")]
+        public IActionResult GetDocument([FromRoute] int id, [FromRoute] string type)
         {
             if (!ModelState.IsValid)
             {
                 return HttpBadRequest(ModelState);
             }
 
-            Document document = _context.Documents.Single(m => m.DocumentId == id);
+            Document document = _context.Documents.Where(m => m.DocumentId == id && m.DocumentType == type).Single();
 
             if (document == null)
             {
@@ -85,6 +85,7 @@ namespace DiyCmWebAPI.Controllers
         [HttpPost]
         public IActionResult PostDocument([FromBody] Document document)
         {
+
             if (!ModelState.IsValid)
             {
                 return HttpBadRequest(ModelState);
