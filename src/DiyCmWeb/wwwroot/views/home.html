@@ -209,7 +209,23 @@
                                     </tr>
                                 </table>
                             </div>
-                        </div>
+                            <div>
+                                <form enctype="multipart/form-data" method="post" action="http://localhost:49983/api/documents"  novalidate="novalidate">
+
+                                    <fieldset>
+                                        <legend>Upload Form</legend>
+                                        <ol>
+                                            <li>
+                                                <label>Upload </label>
+                                                <input type="file" style="width:317px" name="fileUpload">
+                                            </li>
+                                            <li>
+                                                <input type="submit" value="Upload" class="btn">
+                                            </li>
+                                        </ol>
+                                    </fieldset>
+                                </form>
+                            </div>
 
 </section>
             </div><!--end project list -->
