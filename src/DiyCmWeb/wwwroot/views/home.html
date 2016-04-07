@@ -33,7 +33,7 @@
                     <span class="sm-st-icon st-violet"><i class="fa fa-envelope-o"></i></span>
                     <div class="sm-st-info">
                         <span>13</span>
-                        Invoicess
+                        Invoices
                     </div>
                 </div>
             </div>
@@ -209,7 +209,23 @@
                                     </tr>
                                 </table>
                             </div>
-                        </div>
+                            <div>
+                                <form enctype="multipart/form-data" method="post" action="http://localhost:49983/api/documents"  novalidate="novalidate">
+
+                                    <fieldset>
+                                        <legend>Upload Form</legend>
+                                        <ol>
+                                            <li>
+                                                <label>Upload </label>
+                                                <input type="file" style="width:317px" name="fileUpload">
+                                            </li>
+                                            <li>
+                                                <input type="submit" value="Upload" class="btn">
+                                            </li>
+                                        </ol>
+                                    </fieldset>
+                                </form>
+                            </div>
 
 </section>
             </div><!--end project list -->
