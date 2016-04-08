@@ -27,6 +27,31 @@ namespace DiyCmWebAPI.Controllers
             return _context.Categories;
         }
 
+
+        [HttpGet]
+        [Route("budgetClose")]
+        // GET: api/Categories/budgetClose/5 (MUST KNOW THE PROJECT ID)
+        /*
+            A list of categories that is close to being over budget(1000 diffrence) 
+            and categories that are over budget
+        */
+        public List<Category> budgetClose([FromRoute] int projectID)
+        {
+            List<Category> returnList = new List<Category>();
+
+            var categoryList = _context.Categories;
+
+            foreach(Category cat in categoryList)
+            {
+                if(cat.ProjectId == projectID && cat.VarianceAmount <= 1000)
+                {
+                    returnList.Add(cat);
+                }
+            }
+
+            return returnList;
+        }
+
         // GET: api/Categories/5
         [HttpGet("{id}", Name = "GetCategory")]
         public IActionResult GetCategory([FromRoute] int id)
