@@ -290,4 +290,11 @@
           console.log(data);
           window.location.reload();
         }
+
+    QuotesService.getAllSupplierHeaders()
+        .then(onGetSupplierHeaders, onError);
+
+    var onGetSupplierHeaders = function (data) {
+        $scope.SupplierHeaders = data;
+    }
 }]);
