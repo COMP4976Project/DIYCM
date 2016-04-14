@@ -28,7 +28,12 @@ app.config(function ($routeProvider) {
         templateUrl: 'views/quotes/quotes-details.html',
         controller: 'homeController',
         title: 'Quote Details'
-      })
+    })
+    .when('/invoices', {
+        templateUrl: 'views/suppliers/suppliers.html',
+        controller: 'quoteheadersController',
+        title: 'Suppliers'
+    })
     .when('/categories', {
         templateUrl: 'views/categories/categories.html',
         controller: 'homeController',
@@ -44,6 +49,7 @@ app.config(function ($routeProvider) {
         controller: 'documentsController',
         title: 'All Documents'
     });
+
     $routeProvider.otherwise({ redirectTo: "/home" });
 
 });
