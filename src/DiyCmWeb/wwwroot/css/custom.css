@@ -11,6 +11,9 @@
 	z-index:2
 
 }
+#notifications-container h3 {
+  margin-top: 80px;
+}
 #notifications-container button.notifications-accordion{
 	background-color:#425164;color:#fff;cursor:pointer;
 	padding:18px;width:100%;
