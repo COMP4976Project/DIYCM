@@ -184,16 +184,32 @@
                 }
               });
 
+              console.log("==============");
+              //console.log(finalquoteheaderarr);
+              console.log(subcategories);
 
               finalquoteheaderarr.forEach(function(fquoteheader){
                   invoiceheaders.forEach(function(invoiceheader){
                       if(invoiceheader.QuoteHeaderId == fquoteheader.QuoteHeaderId){
                         var invoice = {
                           InvoiceHeader  : invoiceheader,
-                          InvoiceDetails : new Array()
+                          InvoiceDetails : new Array(),
+                          CategoryName   : fquoteheader.CategoryName
                         };
                         invoicedetails.forEach(function(invoicedetail){
                             if(invoiceheader.InvoiceId == invoicedetail.InvoiceId){
+
+                              allAreas.forEach(function (a) {
+                                if(invoicedetail.AreaId == a.AreaId)
+                                  invoicedetail['AreaRoom'] = a.AreaRoom;
+                              });
+                              subcategories.forEach(function (s) {
+                                if(invoicedetail.SubCategoryId == s.SubCategoryId &&
+                                      invoicedetail.CategoryId == s.CategoryId)
+                                  invoicedetail['SubCategoryName'] = s.SubCategoryName;
+                              });
+
+                                invoicedetail["CategoryName"]= 'o';
                                 invoice.InvoiceDetails.push(invoicedetail);
                             }
                         });
