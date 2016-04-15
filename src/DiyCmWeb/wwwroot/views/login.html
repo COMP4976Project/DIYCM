@@ -1,6 +1,11 @@
+<div id="login">
 <div class="container">
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
+        <div data-ng-hide="message == ''" data-ng-class="(savedSuccessfully) ? 'alert alert-success' : 'alert alert-danger'">
+          {{message}}
+        </div>
+
         <section class="content">
           <form name="form" ng-submit="login()" role="form">
             <div class="form-group">
@@ -16,4 +21,5 @@
         </section>
     </div>
   </div>
+</div>
 </div>

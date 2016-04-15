@@ -13,21 +13,6 @@ app.controller('loginController', ['$scope', '$http', '$location', 'accountServi
       password: ""
   }
 
-  var onAddComplete = function (data) {
-    $scope.dataLoading = false;
-    $location.path('/home');
-    console.log(data);
-  };
-
-  var onAddError = function (response) {
-    $scope.dataLoading = false;
-    $scope.savedSuccessfully = false;
-    $scope.message = "Uh oh! We were unable to log you in.";
-
-    console.log(response);
-    console.log(response.statusText + ', error code: ' + response.status);
-  };
-
   $scope.login = function() {
     $scope.dataLoading = true;
     console.log("Checking Credentials");
@@ -44,6 +29,7 @@ app.controller('loginController', ['$scope', '$http', '$location', 'accountServi
     } else {
       $scope.dataLoading = false;
       $scope.savedSuccessfully = false;
+      $scope.message = "Uh oh! Please enter valid credentials.";
       console.log("FALSE");
     }
   };

@@ -14,6 +14,16 @@ var left_side_width = 220; //Sidebar width in pixels
 $(function() {
     "use strict";
 
+    // Notification sidebar scroll fix
+    $(window).bind('scroll', function () {
+        var num = $(window).scrollTop();
+        if (num > 80) {
+            $('#notif-content').css('margin-top', 20);
+        } else {
+            $('#notif-content').css('margin-top', 80-num);
+        }
+    });
+
     //Enable sidebar toggle
     $("[data-toggle='offcanvas']").click(function(e) {
         e.preventDefault();

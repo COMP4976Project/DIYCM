@@ -63,13 +63,6 @@
                             </a>
                             <ul class="dropdown-menu dropdown-custom dropdown-menu-right">
                                 <li class="dropdown-header text-center">Account</li>
-                                <li>
-                                    <a data-toggle="modal" href="#modal-user-settings">
-                                    <i class="fa fa-cog fa-fw pull-right"></i>
-                                        Settings
-                                    </a>
-                                </li>
-                                <li class="divider"></li>
 
                                 <li>
                                     <a ng-click="logout()"><i class="fa fa-ban fa-fw pull-right"></i> Logout</a>
@@ -90,23 +83,10 @@
                 <section class="sidebar">
                     <!-- Sidebar user panel -->
                     <div class="user-panel">
-                        <div class="pull-left image">
-                            <img src="img/26115.jpg" class="img-circle" alt="User Image" />
-                        </div>
                         <div class="pull-left info">
-                            <p>Hello <span ng-bind="$root.authentication.username"></span>!</p>
+                            <p>Welcome <span ng-bind="$root.authentication.username"></span>!</p>
                         </div>
                     </div>
-                    <!-- search form -->
-                    <form action="#" method="get" class="sidebar-form">
-                        <div class="input-group">
-                            <input type="text" name="q" class="form-control" placeholder="Search..."/>
-                            <span class="input-group-btn">
-                                <button type='submit' name='seach' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
-                            </span>
-                        </div>
-                    </form>
-                    <!-- /.search form -->
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <ul class="sidebar-menu">
                         <li ng-class="{ active: isActive('/home')}">
@@ -129,11 +109,6 @@
                                 <i class="fa fa-suitcase"></i> <span>Invoices</span>
                             </a>
                         </li>
-    					<li ng-class="{ active: isActive('/documents')}">
-    						<a href="#/documents">
-    							<i class="fa fa-file-text"></i> <span>Documents</span>
-    						</a>
-    					</li>
                     </ul>
                 </section>
                 <!-- /.sidebar -->
@@ -145,62 +120,50 @@
             </div>
         </div><!-- ./wrapper -->
 
-    <div id="notifications-container" ng-controller="homeController" style="overflow-y: auto">
-        <h3 class="text-center" style="color:white;">
-            Notifications &nbsp;
-            <button type="button" class="btn btn-primary btn-sm" onClick="window.location.reload()">
-                <i class="fa fa-refresh" aria-hidden="true"></i>
-            </button>
-        </h3>
-        <br>
 
-        <button class="notifications-accordion">Projects - Over Budget</button>
-        <div class="notifications-panel status-danger">
-          <div ng-repeat="t in overBudgetProjects" ng-if="t.ActualAmount - t.BudgetAmount > 0">
-              <a href="#/projects/{{t.ProjectId}}">{{t.ProjectName}}</a>
-              <br>
-
-              <div style="padding-left: 2em">
-                  <div style="color:red">Over by: ${{t.ActualAmount - t.BudgetAmount}}</div>
-              </div>
-            </div>
-        </div>
-
-        <button class="notifications-accordion">Projects - Close to Budget</button>
-        <div class="notifications-panel status-warning">
-            <div ng-repeat="t in overBudgetProjects" ng-if="t.ActualAmount / t.BudgetAmount >= 0.9 && t.ActualAmount / t.BudgetAmount <= 1">
-                <a href="#/projects/{{t.ProjectId}}">{{t.ProjectName}}</a>
+        <div id="notifications-container" ng-controller="homeController" style="overflow-y: auto">
+            <div id="notif-content">
+                <h3 class="text-center" style="color:white;">Notifications</h3>
                 <br>
-                <div style="padding-left: 2em">
-                    <div style="color:blue">Budget: ${{t.BudgetAmount}}</div>
-                    <div style="color:green">Budget: ${{t.ActualAmount}}</div>
+                <button class="notifications-accordion">Projects - Over Budget</button>
+                <div class="notifications-panel status-danger">
+                  <div ng-repeat="t in overBudgetProjects" ng-if="t.ActualAmount - t.BudgetAmount > 0">
+                      {{t.ProjectName}}<br>
+                      <div style="padding-left: 2em">
+                          <div style="color:red">Over by: ${{t.ActualAmount - t.BudgetAmount}}</div>
+                      </div>
+                  </div>
 
                 </div>
-            </div>
-        </div>
 
-    		<button class="notifications-accordion">Unpaid Invoices</button>
-    		<div class="notifications-panel status-danger">
-    			<ul class="list-unstyled">
-    				<li><a href="javascript:void(0)">#4542</a> expires: <b>June 12, 2013</b></li>
-    				<li><a href="javascript:void(0)">#123</a> expires: <b>December 21, 2020</b></li>
-    			</ul>
-    			<p></p>
-    		</div>
-
-        <button class="notifications-accordion">Unaccepted Quotes</button>
-        <div class="notifications-panel status-warning" >
-            <div ng-repeat="q in tableQuotes" ng-if="q.IsAccept == 'N'">
-                <div ng-repeat="qdet in tableQuotesDetails" ng-if="qdet.QuoteHeaderId == q.QuoteHeaderId">
-
-                    <div ng-repeat="subcat in tableSubCategories" ng-if="subcat.SubCategoryId == qdet.SubCategoryId">
-                        <br>
+                <button class="notifications-accordion">Projects - Close to Budget</button>
+                <div class="notifications-panel status-warning">
+                    <div ng-repeat="t in overBudgetProjects" ng-if="t.ActualAmount / t.BudgetAmount >= 0.9 && t.ActualAmount / t.BudgetAmount <= 1">
+                        {{t.ProjectName}}<br>
                         <div style="padding-left: 2em">
-                            <div style="color:blue">
-                                <a href="#/projects/{{subcat.ProjectId}}">QuoteHeaderId: #{{q.QuoteHeaderId}}</a>
-                            </div>
+                            <div style="color:blue">Budget: ${{t.BudgetAmount}}</div>
+                            <div style="color:green">Budget: ${{t.ActualAmount}}</div>
                         </div>
+                    </div>
+                </div>
 
+        		<button class="notifications-accordion">Unpaid Invoices</button>
+        		<div class="notifications-panel status-danger">
+        			<ul class="list-unstyled">
+        				<li><a href="javascript:void(0)">#4542</a> expires: <b>June 12, 2013</b></li>
+        				<li><a href="javascript:void(0)">#123</a> expires: <b>December 21, 2020</b></li>
+        			</ul>
+        			<p></p>
+        		</div>
+
+
+                <button class="notifications-accordion">Unaccepted Quotes</button>
+                <div class="notifications-panel status-warning" >
+                    <div ng-repeat="q in tableQuotes" ng-if="q.IsAccept == 'N'">
+                        {{q.ProjectName}}<br>
+                        <div style="padding-left: 2em">
+                            <div style="color:blue">QuoteHeaderId: #{{q.QuoteHeaderId}}</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -254,7 +217,6 @@
     <script src="js/services/QuotesService.js"></script>
     <script src="js/services/InvoicesService.js"></script>
     <script src="js/services/ProjectsService.js"></script>
-    <script src="js/services/DocumentsService.js"></script>
 
     <script src="js/controllers/loginController.js"></script>
     <script src="js/controllers/sidebarController.js"></script>
@@ -262,7 +224,6 @@
     <script src="js/controllers/projectsController.js"></script>
     <script src="js/controllers/singleProjectController.js"></script>
     <script src="js/controllers/quoteheadersController.js"></script>
-  	<script src="js/controllers/documentsController.js"></script>
     <script src="js/controllers/categoriesController.js"></script>
     <script src="js/controllers/areasController.js"></script>
     <script src="js/controllers/invoicesController.js"></script>
