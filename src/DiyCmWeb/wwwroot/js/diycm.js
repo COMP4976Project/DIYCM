@@ -28,7 +28,12 @@ app.config(function ($routeProvider) {
         templateUrl: 'views/quotes/quotes-details.html',
         controller: 'homeController',
         title: 'Quote Details'
-      })
+    })
+    .when('/invoices', {
+        templateUrl: 'views/invoices/invoices.html',
+        controller: 'quoteheadersController',
+        title: 'Invoices'
+    })
     .when('/categories', {
         templateUrl: 'views/categories/categories.html',
         controller: 'homeController',
