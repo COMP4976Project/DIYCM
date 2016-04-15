@@ -17,5 +17,11 @@ app.controller('invoicesController', ['$scope', '$http', 'InvoicesService', func
       InvoicesService.deleteInvoiceHeader(InvoiceHeaderId)
         .then(onSuccess, onError);
     };
+    $scope.deleteInvoiceDetails = function (id) {
+      var InvoiceDetailsId = id;
+      console.log(InvoiceDetailsId);
+      InvoicesService.deleteInvoiceDetail(InvoiceDetailsId)
+        .then(onSuccess, onError);
+    };
 
 }]);
