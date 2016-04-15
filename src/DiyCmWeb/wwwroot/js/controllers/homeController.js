@@ -3,7 +3,7 @@
 //    $scope.message = 'Everyone come and look!';
 //});
 
-app.controller('homeController', ['$scope', '$http', 'QuotesService', 'ReportsService', function ($scope, $http, QuotesService, ReportsService) {
+app.controller('homeController', ['$scope', '$http', '$location', 'QuotesService', 'ReportsService', function ($scope, $http, $location, QuotesService, ReportsService) {
 
     $scope.message = 'Everyone come and look!';
 
@@ -29,7 +29,7 @@ app.controller('homeController', ['$scope', '$http', 'QuotesService', 'ReportsSe
 
     var getProjectsOverBudget = function(data){
         //filter projects over their budget
-        
+
         $scope.overBudgetProjects = data;
         console.log(data);
     };
@@ -39,16 +39,18 @@ app.controller('homeController', ['$scope', '$http', 'QuotesService', 'ReportsSe
         console.log(quotelist);
     };
 
-    ReportsService.getAllProjectsBudgetActual()
-        .then(onGetAllBudgetActual, onGetAllError);
-    ReportsService.getCategoryDetailsAndSummary()
-       .then(onGetAllCategories, onGetAllError);
-    ReportsService.getSubCategoryDetailsAndSummary()
-        .then(onGetAllSubCategories, onGetAllError);
-    ReportsService.getActivities()
-        .then(onGetAllActivities, onGetAllError);
-    ReportsService.getAllProjectsBudgetActual()
-        .then(getProjectsOverBudget, onGetAllError);
-    QuotesService.getAllQuoteHeaders()
-        .then(getAllQuotes, onGetAllError);
+    if ($location.path() != "/login" || $location.path() == null) {
+        ReportsService.getAllProjectsBudgetActual()
+            .then(onGetAllBudgetActual, onGetAllError);
+        ReportsService.getCategoryDetailsAndSummary()
+           .then(onGetAllCategories, onGetAllError);
+        ReportsService.getSubCategoryDetailsAndSummary()
+            .then(onGetAllSubCategories, onGetAllError);
+        ReportsService.getActivities()
+            .then(onGetAllActivities, onGetAllError);
+        ReportsService.getAllProjectsBudgetActual()
+            .then(getProjectsOverBudget, onGetAllError);
+        QuotesService.getAllQuoteHeaders()
+            .then(getAllQuotes, onGetAllError);
+    }
 }]);
