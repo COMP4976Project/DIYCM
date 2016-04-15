@@ -43,15 +43,36 @@ app.config(function ($routeProvider) {
         templateUrl: 'views/documents/documents.html',
         controller: 'documentsController',
         title: 'All Documents'
+    })
+    .when('/login', {
+        templateUrl: 'views/login.html',
+        controller: 'loginController',
+        title: 'Login'
     });
     $routeProvider.otherwise({ redirectTo: "/home" });
 
 });
 
 // Controls the rootscope
-app.run(function ($rootScope, $route) {
+app.run(function ($rootScope, $route, $location) {
     $rootScope.$on("$routeChangeSuccess", function (currentRoute, previousRoute) {
         //Change page title, based on Route information
         $rootScope.title = $route.current.title;
+    });
+
+    // register listener to watch route changes
+    $rootScope.$on( "$routeChangeStart", function(event, next, current) {
+      if ( $rootScope.loggedUser == null ) {
+        // no logged user, we should be going to #login
+        if ( next.templateUrl == "views/login.html" ) {
+          // already going to #login, no redirect needed
+          $rootScope.showLogin = true;
+        } else {
+          // not going to #login, we should redirect now
+          $location.path( "/login" );
+        }
+      } else {
+        $rootScope.showLogin = true;
+      }
     });
 });
