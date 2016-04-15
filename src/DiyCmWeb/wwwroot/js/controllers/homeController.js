@@ -17,6 +17,7 @@ app.controller('homeController', ['$scope', '$http', '$location', 'QuotesService
     };
     var onGetAllSubCategories = function (data) {
         $scope.tableSubCategories = data;
+        console.log("SubCategories:");
         console.log($scope.tableSubCategories);
     };
     var onGetAllActivities = function (data) {
@@ -44,6 +45,27 @@ app.controller('homeController', ['$scope', '$http', '$location', 'QuotesService
         console.log(quotelist);
     };
 
+    var getQuotesDetails = function(quotedetails){
+        $scope.tableQuotesDetails = quotedetails;
+        console.log("QUOTES Details:");
+        console.log(quotedetails);
+    };
+
+    ReportsService.getAllProjectsBudgetActual()
+        .then(onGetAllBudgetActual, onGetAllError);
+    ReportsService.getCategoryDetailsAndSummary()
+       .then(onGetAllCategories, onGetAllError);
+    ReportsService.getSubCategoryDetailsAndSummary()
+        .then(onGetAllSubCategories, onGetAllError);
+    ReportsService.getActivities()
+        .then(onGetAllActivities, onGetAllError);
+    ReportsService.getAllProjectsBudgetActual()
+        .then(getProjectsOverBudget, onGetAllError);
+    QuotesService.getAllQuoteHeaders()
+        .then(getAllQuotes, onGetAllError);
+    QuotesService.getAllQuoteDetails()
+        .then(getQuotesDetails, onGetAllError);
+
     if ($location.path() != "/login" || $location.path() == null) {
         ReportsService.getAllProjectsBudgetActual()
             .then(onGetAllBudgetActual, onGetAllError);
@@ -60,4 +82,5 @@ app.controller('homeController', ['$scope', '$http', '$location', 'QuotesService
         QuotesService.getAllSupplierHeaders()
             .then(onGetSupplierHeaders, onGetAllError);
     }
+
 }]);

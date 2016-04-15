@@ -120,6 +120,7 @@
             </div>
         </div><!-- ./wrapper -->
 
+
         <div id="notifications-container" ng-controller="homeController" style="overflow-y: auto">
             <div id="notif-content">
                 <h3 class="text-center" style="color:white;">Notifications</h3>
@@ -154,6 +155,7 @@
         			</ul>
         			<p></p>
         		</div>
+
 
                 <button class="notifications-accordion">Unaccepted Quotes</button>
                 <div class="notifications-panel status-warning" >
@@ -240,10 +242,11 @@
             {// if not content of a notification
                 if (t.width() != 20) {
                     notifications = t.html(); // save html
-                    t.html(""); // clear
+                    t.html("&nbsp<i class='fa fa-arrow-left' aria-hidden='true' style='color:white; position:absolute; top:50%'></i>"); // clear
                     t.animate({ width: '20px' }, "slow"); // shrink
                 }
                 else {
+                    t.html(""); // clear
                     t.html(notifications); // restore html
                     t.animate({ width: '22%' }, "slow"); // grow
                 }
