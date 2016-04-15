@@ -52,7 +52,8 @@
 #notifications-container .status-danger{border-color:#FF4136 !important}
 #notifications-container .status-success{border-color:#2ECC40 !important}
 
-.panel-heading {
+.panel-heading,
+.panel-default>.panel-heading {
     background: #39435C;
 }
 
