@@ -54,25 +54,39 @@ app.config(function ($routeProvider) {
 });
 
 // Controls the rootscope
-app.run(function ($rootScope, $route, $location) {
+app.run(function ($rootScope, $route, $location, accountService) {
     $rootScope.$on("$routeChangeSuccess", function (currentRoute, previousRoute) {
         //Change page title, based on Route information
         $rootScope.title = $route.current.title;
+
+        // Set some data based on user authentication
+        accountService.fillAuthData();
+        $rootScope.authentication = accountService.authentication;
+
+        // Allow users to logout
+        $rootScope.logout = function () {
+            accountService.logout();
+            $location.path('/login');
+        }
     });
 
     // register listener to watch route changes
     $rootScope.$on( "$routeChangeStart", function(event, next, current) {
-      if ( $rootScope.loggedUser == null ) {
+      accountService.fillAuthData();
+      if (!accountService.authentication.isAuth) {
         // no logged user, we should be going to #login
         if ( next.templateUrl == "views/login.html" ) {
           // already going to #login, no redirect needed
           $rootScope.showLogin = true;
         } else {
           // not going to #login, we should redirect now
-          $location.path( "/login" );
+          $location.path("/login");
         }
       } else {
-        $rootScope.showLogin = true;
+        $rootScope.showLogin = false;
+        if ( next.templateUrl == "views/login.html" ) {
+          $location.path("/home");
+        }
       }
     });
 });

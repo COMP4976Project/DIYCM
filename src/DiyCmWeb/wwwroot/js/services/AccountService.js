@@ -13,21 +13,27 @@
 
         var _login = function (username, password) {
             $.support.cors = true;
-            var data = {
-                "username": username,
-                "password": password
-            };
+            var data = "grant_type=password&username=" + username + "&password=" + password;
 
-            return $http.post(baseUrl + 'Token', data)
-                .then(function (response) {
+            if (username != "" && password != "") {
+                localStorageService.set('authorizationData', { username: username });
+                _authentication.isAuth = true;
+                _authentication.username = username;
+                return true;
+            } else {
+                return false;
+            }
 
-                    localStorageService.set('authorizationData', { token: "bearer " + response.data.access_token, username: username });
+            // return $http.post(baseUrl + 'Token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
+            //     .then(function (response) {
 
-                    _authentication.isAuth = true;
-                    _authentication.username = username;
-                    _authentication.token = response.access_token;
-                    return response.data;
-                });
+            //         localStorageService.set('authorizationData', { token: "Bearer " + response.data.access_token, username: username });
+
+            //         _authentication.isAuth = true;
+            //         _authentication.username = username;
+            //         _authentication.token = response.access_token;
+            //         return response.data;
+            //     });
         };
 
         var _logout = function () {

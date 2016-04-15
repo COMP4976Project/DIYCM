@@ -3,7 +3,7 @@
 //    $scope.message = 'Everyone come and look!';
 //});
 
-app.controller('loginController', ['$scope', '$http', 'accountService', function ($scope, $http, accountService) {
+app.controller('loginController', ['$scope', '$http', '$location', 'accountService', function ($scope, $http, $location, accountService) {
 
   $scope.savedSuccessfully = false;
   $scope.message = "";
@@ -34,8 +34,18 @@ app.controller('loginController', ['$scope', '$http', 'accountService', function
 
     var username = $scope.user.username;
     var password = $scope.user.password;
-    accountService.login(username, password)
-      .then(onAddComplete, onAddError);
+
+    // accountService.login(username, password)
+    //   .then(onAddComplete, onAddError);
+
+    if (accountService.login(username, password)) {
+      $scope.dataLoading = false;
+      $location.path('/home');
+    } else {
+      $scope.dataLoading = false;
+      $scope.savedSuccessfully = false;
+      console.log("FALSE");
+    }
   };
 
 }]);
