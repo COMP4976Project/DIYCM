@@ -27,6 +27,11 @@ app.controller('homeController', ['$scope', '$http', '$location', 'QuotesService
         console.log(reason);
     };
 
+    var onGetSupplierHeaders = function (data) {
+        $scope.allSupplierHeaders = data;
+        console.log(data);
+    };
+
     var getProjectsOverBudget = function(data){
         //filter projects over their budget
 
@@ -52,5 +57,7 @@ app.controller('homeController', ['$scope', '$http', '$location', 'QuotesService
             .then(getProjectsOverBudget, onGetAllError);
         QuotesService.getAllQuoteHeaders()
             .then(getAllQuotes, onGetAllError);
+        QuotesService.getAllSupplierHeaders()
+            .then(onGetSupplierHeaders, onGetAllError);
     }
 }]);

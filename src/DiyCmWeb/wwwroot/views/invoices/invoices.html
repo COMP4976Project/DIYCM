@@ -1,0 +1,102 @@
+﻿<aside class="right-side" style="margin-right: 20px">
+    <section class="content">
+        <h1>INVOICES</h1>
+        <div class="row" style="margin-bottom:5px;">
+            <div class="col-md-4">
+                <div class="sm-st clearfix">
+                    <span class="sm-st-icon st-red"><i class="fa fa-check-square-o"></i></span>
+                    <div class="sm-st-info">
+                        <span>{{allSupplierHeaders.length}}</span>
+                        Number of Invoices
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main row -->
+        <div class="row col-md-8">
+            <div class="panel-group" id="accordion" style="padding-left:0; padding-right:0; margin: 0 auto; width: 100%">
+                <div class="panel panel-default" ng-repeat="q in allSupplierHeaders">
+                    <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" data-target="#{{q.InvoiceId}}">
+                        <a>
+                            <h4 class="panel-title">
+                                Invoice {{q.InvoiceId}}
+
+                            </h4>
+                        </a>
+                    </div>
+                    <div id="{{q.InvoiceId}}" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-7 col-xs-7">
+                                    <dl>
+                                        <dt>Supplier Name:</dt>
+                                        <dd>{{q.SupplierName}}</dd>
+                                        <dt>QuoteHeader Id:</dt>
+                                        <dd>{{q.QuoteHeaderId}}</dd>
+                                        <dt>Contact Name:</dt>
+                                        <dd>{{q.ContactName}}</dd>
+                                        <dt>Phone Number:</dt>
+                                        <dd>{{q.PhoneNumber}}</dd>
+                                        <dt>Referred By:</dt>
+                                        <dd>{{q.ReferredBy}}</dd>
+                                    </dl>
+                                </div>
+
+                                <div class="col-md-5 col-xs-5">
+                                    <dl>
+                                        <dt>Date</dt>
+                                        <dd>{{q.Date}}</dd>
+                                        <dt>Payment Date</dt>
+                                        <dd>{{q.PaymentDate}}</dd>
+                                        <dt>Street:</dt>
+                                        <dd>{{q.AddressStreet}}</dd>
+                                        <dt>Postal Code:</dt>
+                                        <dd>{{q.AddressPostalCode}}</dd>
+                                        <dt>City:</dt>
+                                        <dd>{{q.AddressCity}}</dd>
+                                        <dt>Province:</dt>
+                                        <dd>{{q.AddressProvince}}</dd>
+                                        <dt>Country:</dt>
+                                        <dd>{{q.AddressCountry}}</dd>
+                                    </dl>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-7 col-xs-12">
+                                    <dl>
+                                        <dt>Amount:</dt>
+                                        <dd>${{q.SH_AMOUNT}}</dd>
+                                        <dt>Amount Paid:</dt>
+                                        <dd>${{q.SH_AMOUNT_PAID}}</dd>
+                                    </dl>
+                                </div>
+                                <div class="col-md-5 col-xs-12">
+                                    <dl>
+                                        <dt>Referred By:</dt>
+                                        <dd>{{q.ReferredBy}}</dd>
+                                    </dl>
+
+                                    <div ng-if="q.AmountPaid == 'Y'">
+                                        <div>
+                                            <img id="acceptImage" src="https://d13yacurqjgara.cloudfront.net/users/9866/screenshots/672155/paid_stamp.png" />
+                                            <label>Paid</label>
+                                        </div>
+                                    </div>
+                                    <div ng-if="q.AmountPaid == 'N' ">
+                                        <div>
+                                            <img id="acceptImage" src="http://guyanachronicle.com/wp-content/uploads/2015/01/payment-due-stamp-620x330.jpg" />
+                                            <label>Not Paid</label>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><!-- /.content -->
+</aside><!-- /.right-side -->

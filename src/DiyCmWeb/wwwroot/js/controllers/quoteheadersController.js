@@ -8,6 +8,8 @@
     var onGetQuoteHeader = function (data) {
         $scope.allQuoteHeaders = data;
         //console.log(data);
+        QuotesService.getAllSupplierHeaders()
+            .then(onGetSupplierHeaders, onError);
     };
     var onAddProject = function (data) {
       $scope.newQuote = data;
@@ -290,4 +292,9 @@
           console.log(data);
           window.location.reload();
         }
+
+        var onGetSupplierHeaders = function (data) {
+            $scope.allSupplierHeaders = data;
+            console.log(data);
+        };
 }]);
