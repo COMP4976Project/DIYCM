@@ -59,7 +59,7 @@
 
         <!-- Main row -->
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <section class="panel">
                     <header class="panel-heading">
                         Projects
@@ -100,8 +100,8 @@
                                     </tr>
                                     <tr name="filter" ng-repeat="p in tableProjects">
                                         <td>{{ p.ProjectName }}</td>
-                                        <td>{{ p.BudgetAmount }}</td>
-                                        <td>{{ p.ActualAmount }}</td>
+                                        <td>{{ p.BudgetAmount | currency}}</td>
+                                        <td>{{ p.ActualAmount | currency}}</td>
                                     </tr>
                                 </table>
                             </div>
@@ -117,9 +117,9 @@
                                     <tr name="filter" ng-repeat="cs in tableCategories">
                                         <td>{{ cs.ProjectName }}</td>
                                         <td>{{ cs.CategoryName }}</td>
-                                        <td>{{ cs.BudgetAmount }}</td>
-                                        <td>{{ cs.ActualAmount }}</td>
-                                        <td>{{ cs.PercentCompleted }}</td>
+                                        <td>{{ cs.BudgetAmount | currency}}</td>
+                                        <td>{{ cs.ActualAmount | currency}}</td>
+                                        <td>{{ cs.PercentCompleted }}%</td>
                                     </tr>
                                 </table>
                             </div>
@@ -138,11 +138,11 @@
                                     <tr name="filter" ng-repeat="cd in tableCategories">
                                         <td>{{ cd.ProjectName }}</td>
                                         <td>{{ cd.CategoryName }}</td>
-                                        <td>{{ cd.BudgetAmount }}</td>
-                                        <td>{{ cd.ActualAmount }}</td>
-                                        <td>{{ cd.PercentCompleted }}</td>
+                                        <td>{{ cd.BudgetAmount | currency}}</td>
+                                        <td>{{ cd.ActualAmount | currency}}</td>
+                                        <td>{{ cd.PercentCompleted }}%</td>
                                         <td>{{ cd.PartDescription }}</td>
-                                        <td>{{ cd.PartUnitPrice }}</td>
+                                        <td>{{ cd.PartUnitPrice | currency}}</td>
                                         <td>{{ cd.SupplierName }}</td>
                                     </tr>
                                 </table>
@@ -161,9 +161,9 @@
                                         <td>{{ scs.ProjectName }}</td>
                                         <td>{{ scs.CategoryName }}</td>
                                         <td>{{ scs.SubCategoryName }}</td>
-                                        <td>{{ scs.BudgetAmount }}</td>
-                                        <td>{{ scs.ActualAmount }}</td>
-                                        <td>{{ scs.PercentCompleted }}</td>
+                                        <td>{{ scs.BudgetAmount | currency}}</td>
+                                        <td>{{ scs.ActualAmount | currency}}</td>
+                                        <td>{{ scs.PercentCompleted }}%</td>
                                     </tr>
                                 </table>
                             </div>
@@ -184,9 +184,9 @@
                                         <td>{{ scd.CategoryName }}</td>
                                         <td>{{ scd.SubCategoryName }}</td>
                                         <td>{{ scd.PartDescription }}</td>
-                                        <td>{{ scd.PercentCompleted }}</td>
-                                        <td>{{ scd.PartUnitPrice }}</td>
-                                        <td>{{ scd.PercentCompleted }}</td>
+                                        <td>{{ scd.PercentCompleted }}%</td>
+                                        <td>{{ scd.PartUnitPrice | currency}}</td>
+                                        <td>{{ scd.PercentCompleted }}%</td>
                                         <td>{{ scd.SupplierName }}</td>
                                     </tr>
                                 </table>
@@ -205,8 +205,8 @@
                                         <td>{{ a.ProjectName }}</td>
                                         <td>{{ a.PartDescription }}</td>
                                         <td>{{ a.AreaRoom }}</td>
-                                        <td>{{ a.StartDate }}</td>
-                                        <td>{{ a.ExpiryDate }}</td>
+                                        <td>{{ a.StartDate | date:'longDate'}}</td>
+                                        <td>{{ a.ExpiryDate | date:'longDate'}}</td>
                                         <td>{{ a.Supplier }}</td>
                                     </tr>
                                 </table>

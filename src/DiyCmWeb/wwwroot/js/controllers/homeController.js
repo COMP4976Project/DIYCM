@@ -3,7 +3,7 @@
 //    $scope.message = 'Everyone come and look!';
 //});
 
-app.controller('homeController', ['$scope', '$http', 'QuotesService', 'ReportsService', function ($scope, $http, QuotesService, ReportsService) {
+app.controller('homeController', ['$scope', '$http', '$location', 'QuotesService', 'ReportsService', function ($scope, $http, $location, QuotesService, ReportsService) {
 
     $scope.message = 'Everyone come and look!';
 
@@ -30,7 +30,7 @@ app.controller('homeController', ['$scope', '$http', 'QuotesService', 'ReportsSe
 
     var getProjectsOverBudget = function(data){
         //filter projects over their budget
-        
+
         $scope.overBudgetProjects = data;
         console.log(data);
     };
@@ -60,4 +60,5 @@ app.controller('homeController', ['$scope', '$http', 'QuotesService', 'ReportsSe
         .then(getAllQuotes, onGetAllError);
     QuotesService.getAllQuoteDetails()
         .then(getQuotesDetails, onGetAllError);
+
 }]);

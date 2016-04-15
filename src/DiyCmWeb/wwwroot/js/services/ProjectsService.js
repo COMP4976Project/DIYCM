@@ -43,29 +43,36 @@
           });
     };
 
-    var _ongetProjectCategories = function(id){
-          var reqCategories    = $http.get(url + 'categories');
-          var reqSubCategories = $http.get(url + 'subcategories');
-          var reqProjects      = $http.get(url + 'projects/' + id);
-          var reqQuoteDetails  = $http.get(url + 'quotedetails/');
-          var reqQuoteHeaders  = $http.get(url + 'quoteheaders/');
-          var reqAreas         = $http.get(url + 'areas/');
+    var _getProjectInfo = function(id){
+          var reqCategories     = $http.get(url + 'categories');
+          var reqSubCategories  = $http.get(url + 'subcategories');
+          var reqProjects       = $http.get(url + 'projects/' + id);
+          var reqQuoteDetails   = $http.get(url + 'quotedetails/');
+          var reqQuoteHeaders   = $http.get(url + 'quoteheaders/');
+          var reqAreas          = $http.get(url + 'areas/');
+          var reqInvoiceDetails = $http.get(url + 'supplierinvoicedetails/');
+          var reqInvoiceHeaders = $http.get(url + 'supplierinvoiceheaders/');
 
           // Both Main Categories + Sub categories
           var allProjectCategories    = new Array();
           var allProjectSubCategories = new Array();
-          var allCategories           = new Array();
+          var allInfo          = new Array();
           var allQuoteDetails         = new Array();
           var allQuoteHeaders         = new Array();
           var allAreas                = new Array();
+          var allInvoiceDetails       = new Array();
+          var allInvoiceHeaders       = new Array();
 
-          return $q.all([reqCategories, reqProjects, reqSubCategories, reqQuoteDetails, reqQuoteHeaders, reqAreas]).then(function (values) {
-              var categories    = values[0].data;
-              var project       = values[1].data;
-              var subcategories = values[2].data;
-              var quotedetails  = values[3].data;
-              var quoteheaders  = values[4].data;
-              var areas         = values[5].data;
+          return $q.all([reqCategories, reqProjects, reqSubCategories, reqQuoteDetails, reqQuoteHeaders, reqAreas,reqInvoiceDetails,reqInvoiceHeaders]).then(function (values) {
+              var categories     = values[0].data;
+              var project        = values[1].data;
+              var subcategories  = values[2].data;
+              var quotedetails   = values[3].data;
+              var quoteheaders   = values[4].data;
+              var areas          = values[5].data;
+              var invoicedetails = values[6].data;
+              var invoiceheaders = values[7].data;
+
               //Iterate through each category
               categories.forEach(function (category) {
                 var allSubcategories = new Array();
@@ -148,9 +155,7 @@
                       quotedetails.forEach(function (quotedetail){
                           if(subcat.SubCategoryId == quotedetail.SubCategoryId &&
                                 quote.QuoteHeaderId == quotedetail.QuoteHeaderId){
-                                //console.log(quote.QuoteHeaderId);
                                 quotedetail['SubCategoryName'] = subcat.SubCategoryName;
-                                quote.QuoteDetails.push(quotedetail);
                                 quote.SubCategoryId = quotedetail.SubCategoryId;
                                 quote.CategoryId = quotedetail.CategoryId;
                                 quote.CategoryName = subcat.CategoryName;
@@ -159,6 +164,12 @@
                                 if(quotedetail.AreaId == a.AreaId)
                                   quotedetail['AreaRoom'] = a.AreaRoom;
                                 });
+                                quote.QuoteDetails.push(quotedetail);
+                          }
+                      });
+                      invoicedetails.forEach(function (invoicedetail){
+                          if(subcat.SubCategoryId == invoicedetail.SubCategoryId){
+
                           }
                       });
                   });
@@ -173,15 +184,46 @@
                 }
               });
 
+              console.log("==============");
+              //console.log(finalquoteheaderarr);
+              console.log(subcategories);
 
+              finalquoteheaderarr.forEach(function(fquoteheader){
+                  invoiceheaders.forEach(function(invoiceheader){
+                      if(invoiceheader.QuoteHeaderId == fquoteheader.QuoteHeaderId){
+                        var invoice = {
+                          InvoiceHeader  : invoiceheader,
+                          InvoiceDetails : new Array(),
+                          CategoryName   : fquoteheader.CategoryName
+                        };
+                        invoicedetails.forEach(function(invoicedetail){
+                            if(invoiceheader.InvoiceId == invoicedetail.InvoiceId){
 
+                              allAreas.forEach(function (a) {
+                                if(invoicedetail.AreaId == a.AreaId)
+                                  invoicedetail['AreaRoom'] = a.AreaRoom;
+                              });
+                              subcategories.forEach(function (s) {
+                                if(invoicedetail.SubCategoryId == s.SubCategoryId &&
+                                      invoicedetail.CategoryId == s.CategoryId)
+                                  invoicedetail['SubCategoryName'] = s.SubCategoryName;
+                              });
 
+                                invoicedetail["CategoryName"]= 'o';
+                                invoice.InvoiceDetails.push(invoicedetail);
+                            }
+                        });
+                        allInvoiceHeaders.push(invoice);
+                      }
+                  });
+              });
 
-              allCategories.push(allProjectCategories);
-              allCategories.push(allProjectSubCategories);
-              allCategories.push(finalquoteheaderarr);
-              allCategories.push(allAreas);
-              return allCategories;
+              allInfo.push(allProjectCategories);
+              allInfo.push(allProjectSubCategories);
+              allInfo.push(finalquoteheaderarr);
+              allInfo.push(allAreas);
+              allInfo.push(allInvoiceHeaders);
+              return allInfo;
           });
     }
 
@@ -191,7 +233,7 @@
       editProject: _editProject,
       deleteProject: _deleteProject,
       getAllProjects: _getAllProjects,
-      getProjectCategories: _ongetProjectCategories
+      getProjectInfo: _getProjectInfo
     };
   };
 

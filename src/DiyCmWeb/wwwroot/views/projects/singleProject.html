@@ -199,35 +199,81 @@
 
         <div class="col-md-6">
             <h4 class="text-center notification-icon accordian-header" data-toggle="collapse" data-target="#invoices">
-                <span class="badge text">{{invoices.length}}</span>
+                <span class="badge text">{{InvoiceDetails.length}}</span>
                 Invoices
             </h4>
             <div id="invoices" class="collapse">
-                <div ng-repeat="i in invoices">
-                    <h3>QuoteHeaderId {{i.InvoiceId}}</h3>
-                    <table class="table">
+
+
+              <div ng-repeat="i in InvoiceDetails">
+                  <div class="panel-heading nth-1" data-toggle="collapse" data-parent="#accordion" data-target="#invoiceheader{{i.InvoiceHeader.InvoiceId}}">
+                      <h4 class="panel-title">
+                        <span class="badge text">{{i.InvoiceDetails.length}}</span>
+                        InvoiceId{{i.InvoiceHeader.InvoiceId}} - QuoteHeaderId{{i.InvoiceHeader.QuoteHeaderId}}
+                        <br><br>
+                      </h4>
+                  </div>
+                  <div id="invoiceheader{{i.InvoiceHeader.InvoiceId}}" class="panel-collapse collapse">
+                    <!-- <div ng-include="'views/quotes/quoteDetailsModal.html'"></div>
+                    <div class="text-center btn-success add-modal" data-toggle="modal" data-target="#quoteDetailsModal{{q.QuoteHeaderId}}">
+                      <h5<i class="fa fa-plus"></i> Item</h5>
+                    </div> -->
+                    <div>
+                      <!-- <p>{{q.CategoryName}}({{q.CategoryId}})>{{q.SubCategoryName}}({{q.SubCategoryId}})</p> -->
+                      <dl class="col-md-6">
+                          <dt>Street:</dt>
+                          <dd>{{i.InvoiceHeader.AddressStreet}}</dd>
+                          <dt>City:</dt>
+                          <dd>{{i.InvoiceHeader.AddressCity}}</dd>
+                          <dt>Province:</dt>
+                          <dd>{{i.InvoiceHeader.AddressProvince}}</dd>
+                          <dt>Postal Code:</dt>
+                          <dd>{{i.InvoiceHeader.AddressPostalCode}}</dd>
+                          <dt>Country:</dt>
+                          <dd>{{i.InvoiceHeader.AddressCountry}}</dd>
+                      </dl>
+                      <dl class="col-md-6">
+                          <dt>Contact Name:</dt>
+                          <dd>{{i.InvoiceHeader.ContactName}}</dd>
+                          <dt>Phone Number:</dt>
+                          <dd>{{i.InvoiceHeader.PhoneNumber}}</dd>
+                          <dt>PaymentDate:</dt>
+                          <dd>{{i.InvoiceHeader.PaymentDate}}</dd>
+                          <dt>AmountPaid:</dt>
+                          <dd>{{i.InvoiceHeader.AmountPaid}}</dd>
+                          <dt>SH_AMOUNT:</dt>
+                          <dd>${{i.InvoiceHeader.SH_AMOUNT}}</dd>
+                          <dt>SH_AMOUNT_PAID:</dt>
+                          <dd>${{i.InvoiceHeader.SH_AMOUNT_PAID}}</dd>
+                      </dl>
+                      <!-- <div ng-include="'views/quotes/deleteQuoteHeaderModal.html'"></div>
+                      <span class="pull-right btn btn-default delete-btn"><i class="fa fa-trash fa-4x"  data-toggle="modal" data-target="#deleteQuoteHeaderModal{{q.QuoteHeader.QuoteHeaderId}}"></i></span> -->
+                    </div>
+                      <table class="table">
                         <tr>
-                            <th>LineNumber</th>
-                            <th>PartNumber</th>
-                            <th>PartDescription</th>
-                            <th>CategoryId</th>
-                            <th>SubCategoryId</th>
-                            <th>AreaId</th>
+                            <th>PartId</th>
+                            <th>Description</th>
+                            <th>Subcategory Name</th>
                             <th>Unit Price</th>
-                            <th>Notes</th>
+                            <th>Quantity</th>
+                            <th>Area Room</th>
+                            <th></th>
                         </tr>
-                        <tr ng-repeat="ins in i.invoices">
-                            <td>{{ins.LineNumber}}</td>
-                            <td>{{ins.PartNumber}}</td>
-                            <td>{{ins.PartDescription}}</td>
-                            <td>{{ins.CategoryId}}</td>
-                            <td>{{ins.SubCategoryId}}</td>
-                            <td>{{ins.AreaId}}</td>
-                            <td>{{ins.UnitPrice}}</td>
-                            <td>{{ins.Notes}}</td>
+                        <tr ng-repeat="inv in i.InvoiceDetails">
+                          <td>{{inv.PartNumber}}</td>
+                          <td> {{inv.PartDescription}}</td>
+                          <td>{{inv.SubCategoryName}}</td>
+                          <td>${{inv.UnitPrice}}</td>
+                          <td>x{{inv.Quantity}}</td>
+                          <td>{{inv.AreaRoom}}</td>
+                          <td>
+                            <!-- <div ng-include="'views/quotes/deleteQuoteDetailsModal.html'"></div>
+                            <span class="pull-right btn btn-default delete-btn"><i class="fa fa-trash fa-2x"  data-toggle="modal" data-target="#deleteQuoteDetailsModal{{qd.QuoteDetailId}}"></i></span> -->
+                          </td>
                         </tr>
-                    </table>
-                </div>
+                      </table>
+                  </div>
+              </div>
             </div>
         </div>
         <div class="clearfix"></div>

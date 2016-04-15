@@ -13,12 +13,13 @@
         //console.log(data);
     };
 
-    var onGetProjectCategories = function (data) {
+    var onGetProjectInfo = function (data) {
         console.log(data);
-        $scope.Categories    = data[0];
-        $scope.SubCategories = data[1];
-        $scope.QuoteDetails  = data[2];
-        $scope.Areas         = data[3];
+        $scope.Categories     = data[0];
+        $scope.SubCategories  = data[1];
+        $scope.QuoteDetails   = data[2];
+        $scope.Areas          = data[3];
+        $scope.InvoiceDetails = data[4];
     };
 
 
@@ -29,8 +30,8 @@
 
     ProjectsService.getProject(ProjectId)
         .then(onGetProject, onGetProjectError);
-    ProjectsService.getProjectCategories(ProjectId)
-        .then(onGetProjectCategories, onGetProjectError);
+    ProjectsService.getProjectInfo(ProjectId)
+        .then(onGetProjectInfo, onGetProjectError);
 
 
 }]);
