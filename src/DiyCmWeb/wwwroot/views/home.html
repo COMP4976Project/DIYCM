@@ -1,8 +1,20 @@
-﻿<script>
+﻿<style>
+    #date1 {
+        width:25%;
+    }
+    #date2 {
+        width:25%;
+    }
+    #dates {
+        display:inline;
+    }
+</style>
+<script>
     $('#myTabs a').click(function (e) {
         e.preventDefault()
         $(this).tab('show')
-    })</script>
+    })
+</script>
 <!-- Filter search for projects -->
 <script language="javascript" type="text/javascript">
     function filter(element) {
@@ -13,7 +25,40 @@
         condition.filter(function () {
             return $(this).text().toLowerCase().indexOf(value) > -1;
         }).show();
-}
+    }
+   
+    $('[name="dateFrom"]').on("change", function () {
+        var conditionDateFrom = $('.table tr[name="filter"]');
+
+        if ($(this).val() == '') {
+            conditionDateFrom.show();
+            return;
+        }
+
+        var dateFrom = new Date($(this).val());
+
+        conditionDateFrom.hide();
+        conditionDateFrom.filter(function (index) {
+            return index == 0 || dateFrom <= new Date($(this).children('td[name="tdDateFrom"]').text());
+        }).show();
+    });
+
+    $('[name="dateTo"]').on("change", function () {
+        var conditionDateTo = $('.table tr[name="filter"]');
+
+        if ($(this).val() == '') {
+            conditionDateFrom.show();
+            return;
+        }
+
+        var dateTo = new Date($(this).val());
+
+        conditionDateTo.hide();
+        conditionDateTo.filter(function (index) {
+            return index == 0 || dateTo >= new Date($(this).children('td[name="tdDateTo"]').text());
+        }).show();
+    });
+
 </script>
 <aside class="right-side">
     <section class="content">
@@ -21,28 +66,10 @@
         <div class="row" style="margin-bottom:5px;">
             <div class="col-md-3">
                 <div class="sm-st clearfix">
-                    <span class="sm-st-icon st-red"><i class="fa fa-check-square-o"></i></span>
-                    <div class="sm-st-info">
-                        <span>10</span>
-                        Upcoming Deadlines
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="sm-st clearfix">
                     <span class="sm-st-icon st-violet"><i class="fa fa-envelope-o"></i></span>
                     <div class="sm-st-info">
-                        <span>13</span>
+                        <span>{{allSupplierHeaders.length}}</span>
                         Invoices
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="sm-st clearfix">
-                    <span class="sm-st-icon st-blue"><i class="fa fa-dollar"></i></span>
-                    <div class="sm-st-info">
-                        <span>$100,000</span>
-                        Balance
                     </div>
                 </div>
             </div>
@@ -62,7 +89,7 @@
             <div class="col-md-12">
                 <section class="panel">
                     <header class="panel-heading">
-                        Projects
+                        <h4 class="projectTitle">Projects</h4>
                     </header>
                     <!-- Input search box for projects -->
                     <div class="form-group">
@@ -94,9 +121,9 @@
                             <div role="tabpanel" class="tab-pane active" id="div_budget_actual">
                                 <table class="table table-hover">
                                     <tr>
-                                        <th class="col-md-7">Project</th>
-                                        <th class="col-md-3">Budget</th>
-                                        <th class="col-md-3">Actual</th>
+                                        <th class="col-md-1">Project</th>
+                                        <th class="col-md-1">Budget</th>
+                                        <th class="col-md-1">Actual</th>
                                     </tr>
                                     <tr name="filter" ng-repeat="p in tableProjects">
                                         <td>{{ p.ProjectName }}</td>
@@ -126,13 +153,13 @@
                             <div role="tabpanel" class="tab-pane" id="div_categories_details">
                                 <table class="table table-hover">
                                     <tr>
-                                        <th class="col-md-4">Project</th>
-                                        <th class="col-md-2">Category</th>
-                                        <th class="col-md-2">Budget</th>
-                                        <th class="col-md-2">Actual</th>
-                                        <th class="col-md-2">% Completed</th>
-                                        <th class="col-md-2">Part</th>
-                                        <th class="col-md-2">Unit Price</th>
+                                        <th class="col-md-2">Project</th>
+                                        <th class="col-md-1">Category</th>
+                                        <th class="col-md-1">Budget</th>
+                                        <th class="col-md-1">Actual</th>
+                                        <th class="col-md-1">% Completed</th>
+                                        <th class="col-md-1">Part</th>
+                                        <th class="col-md-1">Unit Price</th>
                                         <th class="col-md-2">Supplier</th>
                                     </tr>
                                     <tr name="filter" ng-repeat="cd in tableCategories">
@@ -150,7 +177,7 @@
                             <div role="tabpanel" class="tab-pane" id="div_subcategories_summary">
                                 <table class="table table-hover">
                                     <tr>
-                                        <th class="col-md-4">Project</th>
+                                        <th class="col-md-3">Project</th>
                                         <th class="col-md-2">Category</th>
                                         <th class="col-md-2">SubCategory</th>
                                         <th class="col-md-2">Budget</th>
@@ -170,13 +197,13 @@
                             <div role="tabpanel" class="tab-pane" id="div_subcategories_details">
                                 <table class="table table-hover">
                                     <tr>
-                                        <th class="col-md-4">Project</th>
-                                        <th class="col-md-2">Category</th>
-                                        <th class="col-md-2">SubCategory</th>
+                                        <th class="col-md-2">Project</th>
+                                        <th class="col-md-1">Category</th>
+                                        <th class="col-md-1">SubCategory</th>
                                         <th class="col-md-2">Part</th>
-                                        <th class="col-md-2">% Completed</th>
-                                        <th class="col-md-2">Unit Price</th>
-                                        <th class="col-md-2">% Discount</th>
+                                        <th class="col-md-1">% Completed</th>
+                                        <th class="col-md-1">Unit Price</th>
+                                        <th class="col-md-1">% Discount</th>
                                         <th class="col-md-2">Supplier</th>
                                     </tr>
                                     <tr name="filter" ng-repeat="scd in tableSubCategories">
@@ -192,21 +219,29 @@
                                 </table>
                             </div>
                             <div role="tabpanel" class="tab-pane" id="div_activities">
+                                <br />    
+                                <div class="form-group" id="dates">
+                                    <label for="date1" class="control-label">Date From:</label>
+                                        <input class="form-inline" id="date1" name="dateFrom" type="date" value="2016-01-01" />
+                                    <label for="date2" class="control-label">Date To:</label> 
+                                        <input class="form-inline" id="date2" name="dateTo" type="date" value="2017-01-01" />
+                                </div>
+                                <hr />
                                 <table class="table table-hover">
                                     <tr>
-                                        <th class="col-md-4">Project</th>
+                                        <th class="col-md-3">Project</th>
                                         <th class="col-md-2">Part</th>
                                         <th class="col-md-2">Area</th>
                                         <th class="col-md-2">Start</th>
                                         <th class="col-md-2">End</th>
-                                        <th class="col-md-2">Supplier</th>
+                                        <th class="col-md-3">Supplier</th>
                                     </tr>
                                     <tr name="filter" ng-repeat="a in tableActivities">
                                         <td>{{ a.ProjectName }}</td>
                                         <td>{{ a.PartDescription }}</td>
                                         <td>{{ a.AreaRoom }}</td>
-                                        <td>{{ a.StartDate | date:'longDate'}}</td>
-                                        <td>{{ a.ExpiryDate | date:'longDate'}}</td>
+                                        <td name="tdDateFrom">{{ a.StartDate | date:'longDate'}}</td>
+                                        <td name="tdDateTo">{{ a.ExpiryDate | date:'longDate'}}</td>
                                         <td>{{ a.Supplier }}</td>
                                     </tr>
                                 </table>

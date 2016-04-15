@@ -3,7 +3,7 @@
 //    $scope.message = 'Everyone come and look!';
 //});
 
-app.controller('homeController', ['$scope', '$http', 'QuotesService', 'ReportsService', function ($scope, $http, QuotesService, ReportsService) {
+app.controller('homeController', ['$scope', '$http', '$location', 'QuotesService', 'ReportsService', function ($scope, $http, $location, QuotesService, ReportsService) {
 
     $scope.message = 'Everyone come and look!';
 
@@ -17,6 +17,7 @@ app.controller('homeController', ['$scope', '$http', 'QuotesService', 'ReportsSe
     };
     var onGetAllSubCategories = function (data) {
         $scope.tableSubCategories = data;
+        console.log("SubCategories:");
         console.log($scope.tableSubCategories);
     };
     var onGetAllActivities = function (data) {
@@ -27,9 +28,14 @@ app.controller('homeController', ['$scope', '$http', 'QuotesService', 'ReportsSe
         console.log(reason);
     };
 
+    var onGetSupplierHeaders = function (data) {
+        $scope.allSupplierHeaders = data;
+        console.log(data);
+    };
+
     var getProjectsOverBudget = function(data){
         //filter projects over their budget
-        
+
         $scope.overBudgetProjects = data;
         console.log(data);
     };
@@ -37,6 +43,12 @@ app.controller('homeController', ['$scope', '$http', 'QuotesService', 'ReportsSe
         $scope.tableQuotes = quotelist;
         console.log("QUOTES:");
         console.log(quotelist);
+    };
+
+    var getQuotesDetails = function(quotedetails){
+        $scope.tableQuotesDetails = quotedetails;
+        console.log("QUOTES Details:");
+        console.log(quotedetails);
     };
 
     ReportsService.getAllProjectsBudgetActual()
@@ -51,4 +63,24 @@ app.controller('homeController', ['$scope', '$http', 'QuotesService', 'ReportsSe
         .then(getProjectsOverBudget, onGetAllError);
     QuotesService.getAllQuoteHeaders()
         .then(getAllQuotes, onGetAllError);
+    QuotesService.getAllQuoteDetails()
+        .then(getQuotesDetails, onGetAllError);
+
+    if ($location.path() != "/login" || $location.path() == null) {
+        ReportsService.getAllProjectsBudgetActual()
+            .then(onGetAllBudgetActual, onGetAllError);
+        ReportsService.getCategoryDetailsAndSummary()
+           .then(onGetAllCategories, onGetAllError);
+        ReportsService.getSubCategoryDetailsAndSummary()
+            .then(onGetAllSubCategories, onGetAllError);
+        ReportsService.getActivities()
+            .then(onGetAllActivities, onGetAllError);
+        ReportsService.getAllProjectsBudgetActual()
+            .then(getProjectsOverBudget, onGetAllError);
+        QuotesService.getAllQuoteHeaders()
+            .then(getAllQuotes, onGetAllError);
+        QuotesService.getAllSupplierHeaders()
+            .then(onGetSupplierHeaders, onGetAllError);
+    }
+
 }]);

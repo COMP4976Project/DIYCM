@@ -28,7 +28,12 @@ app.config(function ($routeProvider) {
         templateUrl: 'views/quotes/quotes-details.html',
         controller: 'homeController',
         title: 'Quote Details'
-      })
+    })
+    .when('/invoices', {
+        templateUrl: 'views/invoices/invoices.html',
+        controller: 'quoteheadersController',
+        title: 'Invoices'
+    })
     .when('/categories', {
         templateUrl: 'views/categories/categories.html',
         controller: 'homeController',
@@ -39,19 +44,54 @@ app.config(function ($routeProvider) {
         controller: 'homeController',
         title: 'All Sub-Categories'
     })
-    .when('/documents', {
-        templateUrl: 'views/documents/documents.html',
-        controller: 'documentsController',
-        title: 'All Documents'
+    // .when('/documents', {
+    //     templateUrl: 'views/documents/documents.html',
+    //     controller: 'documentsController',
+    //     title: 'All Documents'
+    // })
+    .when('/login', {
+        templateUrl: 'views/login.html',
+        controller: 'loginController',
+        title: 'Login'
     });
     $routeProvider.otherwise({ redirectTo: "/home" });
 
 });
 
 // Controls the rootscope
-app.run(function ($rootScope, $route) {
+app.run(function ($rootScope, $route, $location, accountService) {
     $rootScope.$on("$routeChangeSuccess", function (currentRoute, previousRoute) {
         //Change page title, based on Route information
         $rootScope.title = $route.current.title;
+
+        // Set some data based on user authentication
+        accountService.fillAuthData();
+        $rootScope.authentication = accountService.authentication;
+
+        // Allow users to logout
+        $rootScope.logout = function () {
+            accountService.logout();
+            $location.path('/login');
+        }
+    });
+
+    // register listener to watch route changes
+    $rootScope.$on( "$routeChangeStart", function(event, next, current) {
+      accountService.fillAuthData();
+      if (!accountService.authentication.isAuth) {
+        // no logged user, we should be going to #login
+        if ( next.templateUrl == "views/login.html" ) {
+          // already going to #login, no redirect needed
+          $rootScope.showLogin = true;
+        } else {
+          // not going to #login, we should redirect now
+          $location.path("/login");
+        }
+      } else {
+        $rootScope.showLogin = false;
+        if ( next.templateUrl == "views/login.html" ) {
+          $location.path("/home");
+        }
+      }
     });
 });

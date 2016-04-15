@@ -11,15 +11,6 @@
                     </div>
                 </div>
             </div>
-
-            <div class="col-md-4">
-                <div class="sm-st clearfix">
-                    <span class="sm-st-icon st-green"><i class="fa fa-plus"></i></span>
-                    <div class="sm-st-info">
-                        <span>Add A Quote</span>
-                    </div>
-                </div>
-            </div>
         </div>
 
         <!-- Main row -->
@@ -30,7 +21,6 @@
                 <a>
                   <h4 class="panel-title">
                     Quote {{q.QuoteHeaderId}}
-                  <span class="pull-right hidden-md hidden-lg"><i class="fa fa-pencil-square"></i></span>
                   </h4>
                 </a>
               </div>
@@ -78,19 +68,21 @@
                         <dt>ReferredBy:</dt>
                         <dd>{{q.ReferredBy}}</dd>
                         <dt>PercentDiscount:</dt>
-                        <dd>{{q.PercentDiscount}}</dd>
+                        <dd>{{q.PercentDiscount}}%</dd>
                       </dl>
-                      <div class="checkbox">
-                      </div>
 
                         <div ng-if="q.IsAccept == 'Y'">
-                            <label><input type="checkbox" value="" checked>Accepted</label>
+                            <div>
+                                <img id="acceptImage" src="http://particularlyme.com/uploads/monthly_2015_12/accept-icon.png.d4ad3a25005358c527b4333b4019d4da.png" />
+                                <label>Accepted</label>
+                            </div>
                         </div>
                         <div ng-if="q.IsAccept == 'N' ">
-                            <label><input type="checkbox" value="" >Accepted</label>
+                            <div>
+                                <img id="acceptImage" src="http://appmuse.com/wp-content/uploads/2010/10/Thumbs-down-icon-150x150.jpg" />
+                                <label>Not Accepted</label>
+                            </div>
                         </div>
-
-                      <span class="pull-right hidden-xs hidden-sm btn btn-default"><i class="fa fa-pencil-square fa-4x"></i></span>
                     </div>
                   </div>
                 </div>
