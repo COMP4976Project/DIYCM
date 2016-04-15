@@ -94,25 +94,36 @@
                     <h5<i class="fa fa-plus"></i> Quote</h5>
                   </div>
                     <div class="panel-body" style="word-wrap: break-word;">
-                        <dl>
-                            <dt>Sub Category Name:</dt>
                             <div ng-repeat="sub in s.SubCategories">
                               <div ng-include="'views/quotes/quotesModal.html'"></div>
-                              <dd>{{sub.SubCategoryName}} ... {{sub.SubCategoryId}}</dd>
-                              <div ng-include="'views/subcategories/deleteSubCategoryModal.html'"></div>
-                              <span class="pull-right btn btn-default delete-btn"><i class="fa fa-trash fa-4x"  data-toggle="modal" data-target="#deleteSubCategoryModal{{sub.SubCategoryId}}"></i></span>
+
+                              <div class="panel-heading nth-1" data-toggle="collapse" data-parent="#accordion" data-target="#subcategory{{sub.SubCategoryId}}">
+                                  <h4 class="panel-title">
+                                    <span class="badge text">{{q.QuoteDetails.length}}</span>
+                                    {{sub.SubCategoryName}}
+                                    <br><br>
+                                  </h4>
+                              </div>
+                              <div id="subcategory{{sub.SubCategoryId}}" class="collapse">
+                                <dl>
+                                  <dt>Description:</dt>
+                                  <dd>{{sub.Description}}</dd>
+                                  <dt>Budget Amount:</dt>
+                                  <dd>${{sub.BudgetAmount}}</dd>
+                                  <dt>Actual Amount:</dt>
+                                  <dd>${{sub.ActualAmount}}</dd>
+                                  <dt>Percentage Complete:</dt>
+                                  <dd>{{sub.PercentCompleted}}%</dd>
+                                  <dt>Variance Amount:</dt>
+                                  <dd>${{sub.VarianceAmount}}</dd>
+                                </dl>
+                              </div>
+
+
+
+                              <!-- <div ng-include="'views/subcategories/deleteSubCategoryModal.html'"></div>
+                              <span class="pull-right btn btn-default delete-btn"><i class="fa fa-trash fa-4x"  data-toggle="modal" data-target="#deleteSubCategoryModal{{sub.SubCategoryId}}"></i></span> -->
                             </div>
-                            <!-- <dt>Description:</dt>
-                            <dd></dd>
-                            <dt>Budget Amount:</dt>
-                            <dd></dd>
-                            <dt>Actual Amount:</dt>
-                            <dd></dd>
-                            <dt>Percentage Complete:</dt>
-                            <dd></dd>
-                            <dt>Variance Amount:</dt>
-                            <dd></dd> -->
-                        </dl>
                     </div>
                 </div>
             </div><!-- End of 2 Main Category -->
@@ -171,7 +182,7 @@
                       </div>
                         <table class="table">
                           <tr>
-                              <th>PartId</th>
+                              <!-- <th>PartId</th> -->
                               <th>Description</th>
                               <th>Subcategory Name</th>
                               <th>Unit Price</th>
@@ -180,7 +191,7 @@
                               <th></th>
                           </tr>
                           <tr ng-repeat="qd in q.QuoteDetails">
-                            <td>{{qd.PartId}}</td>
+                            <!-- <td>{{qd.PartId}}</td> -->
                             <td> {{qd.PartDescription}}</td>
                             <td>{{qd.SubCategoryName}}</td>
                             <td>${{qd.UnitPrice}}</td>
@@ -251,7 +262,7 @@
                     </div>
                       <table class="table">
                         <tr>
-                            <th>PartId</th>
+                            <!-- <th>PartId</th> -->
                             <th>Description</th>
                             <th>Subcategory Name</th>
                             <th>Unit Price</th>
@@ -260,15 +271,15 @@
                             <th></th>
                         </tr>
                         <tr ng-repeat="inv in i.InvoiceDetails">
-                          <td>{{inv.PartNumber}}</td>
+                          <!-- <td>{{inv.PartNumber}}</td> -->
                           <td> {{inv.PartDescription}}</td>
                           <td>{{inv.SubCategoryName}}</td>
                           <td>${{inv.UnitPrice}}</td>
                           <td>x{{inv.Quantity}}</td>
                           <td>{{inv.AreaRoom}}</td>
                           <td>
-                            <!-- <div ng-include="'views/quotes/deleteQuoteDetailsModal.html'"></div>
-                            <span class="pull-right btn btn-default delete-btn"><i class="fa fa-trash fa-2x"  data-toggle="modal" data-target="#deleteQuoteDetailsModal{{qd.QuoteDetailId}}"></i></span> -->
+                            <div ng-include="'views/quotes/deleteQuoteDetailsModal.html'"></div>
+                            <span class="pull-right btn btn-default delete-btn"><i class="fa fa-trash fa-2x"  data-toggle="modal" data-target="#deleteQuoteDetailsModal{{qd.QuoteDetailId}}"></i></span>
                           </td>
                         </tr>
                       </table>
