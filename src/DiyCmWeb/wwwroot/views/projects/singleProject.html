@@ -51,16 +51,16 @@
                                 <dt>Description:</dt>
                                 <dd>{{c.Description}}</dd>
                                 <dt>Budget Amount:</dt>
-                                <dd>{{c.BudgetAmount}}</dd>
+                                <dd>${{c.BudgetAmount}}</dd>
                                 <dt>Actual Amount:</dt>
-                                <dd>{{c.ActualAmount}}</dd>
+                                <dd>${{c.ActualAmount}}</dd>
                                 <dt>Percentage Complete:</dt>
-                                <dd>{{c.PercentCompleted}}</dd>
+                                <dd>{{c.PercentCompleted}}%</dd>
                                 <dt>Variance Amount:</dt>
-                                <dd>{{c.VarianceAmount}}</dd>
+                                <dd>${{c.VarianceAmount}}</dd>
                                 <dt>Subcategories</dt>
                                 <div ng-repeat="s in c.SubCategories">
-                                  <dd>{{s.SubCategoryName}}</dd>
+                                  <dd>{{$index + 1}}. {{s.SubCategoryName}}</dd>
                                 </div>
                                 <div ng-include="'views/categories/deleteCategoryModal.html'"></div>
                                 <span class="pull-right btn btn-default delete-btn"><i class="fa fa-trash fa-4x"  data-toggle="modal" data-target="#deleteCategoryModal{{c.CategoryId}}"></i></span>
@@ -97,14 +97,14 @@
                             <div ng-repeat="sub in s.SubCategories">
                               <div ng-include="'views/quotes/quotesModal.html'"></div>
 
-                              <div class="panel-heading nth-1" data-toggle="collapse" data-parent="#accordion" data-target="#subcategory{{sub.SubCategoryId}}">
+                              <div class="panel-heading nth-1 row" data-toggle="collapse" data-parent="#accordion" data-target="#subcategory{{sub.SubCategoryId}}">
                                   <h4 class="panel-title">
                                     <span class="badge text">{{q.QuoteDetails.length}}</span>
                                     {{sub.SubCategoryName}}
                                     <br><br>
                                   </h4>
                               </div>
-                              <div id="subcategory{{sub.SubCategoryId}}" class="collapse">
+                              <div id="subcategory{{sub.SubCategoryId}}" class="collapse row">
                                 <dl>
                                   <dt>Description:</dt>
                                   <dd>{{sub.Description}}</dd>
@@ -117,12 +117,9 @@
                                   <dt>Variance Amount:</dt>
                                   <dd>${{sub.VarianceAmount}}</dd>
                                 </dl>
+                                <div ng-include="'views/subcategories/deleteSubCategoryModal.html'"></div>
+                                <span class="pull-right btn btn-default delete-btn"><i class="fa fa-trash fa-2x"  data-toggle="modal" data-target="#deleteSubCategoryModal{{sub.SubCategoryId}}"></i></span>
                               </div>
-
-
-
-                              <!-- <div ng-include="'views/subcategories/deleteSubCategoryModal.html'"></div>
-                              <span class="pull-right btn btn-default delete-btn"><i class="fa fa-trash fa-4x"  data-toggle="modal" data-target="#deleteSubCategoryModal{{sub.SubCategoryId}}"></i></span> -->
                             </div>
                     </div>
                 </div>
