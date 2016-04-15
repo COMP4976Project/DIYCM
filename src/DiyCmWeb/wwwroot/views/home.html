@@ -1,4 +1,15 @@
-﻿<script>
+﻿<style>
+    #date1 {
+        width:25%;
+    }
+    #date2 {
+        width:25%;
+    }
+    #dates {
+        display:inline;
+    }
+</style>
+<script>
     $('#myTabs a').click(function (e) {
         e.preventDefault()
         $(this).tab('show')
@@ -16,32 +27,37 @@
         }).show();
     }
    
-    
     $('[name="dateFrom"]').on("change", function () {
+        var conditionDateFrom = $('.table tr[name="filter"]');
+
+        if ($(this).val() == '') {
+            conditionDateFrom.show();
+            return;
+        }
+
         var dateFrom = new Date($(this).val());
 
-        var conditionDateFrom = $('td[name="tdDateFrom');
-
-        conditionDateFrom.parent().hide();
-        conditionDateFrom.filter(function () {
-            return dateFrom < new Date(conditionDateFrom.html());
-        }).parent().show();
-        
+        conditionDateFrom.hide();
+        conditionDateFrom.filter(function (index) {
+            return index == 0 || dateFrom <= new Date($(this).children('td[name="tdDateFrom"]').text());
+        }).show();
     });
-
 
     $('[name="dateTo"]').on("change", function () {
+        var conditionDateTo = $('.table tr[name="filter"]');
+
+        if ($(this).val() == '') {
+            conditionDateFrom.show();
+            return;
+        }
+
         var dateTo = new Date($(this).val());
 
-        var conditionDateTo = $('td[name="tdDateTo');
-
         conditionDateTo.hide();
-        conditionDateTo.filter(function () {
-            console.log(conditionDateTo.html());
-            return dateTo > new Date(conditionDateTo.html());
-        }).append();
+        conditionDateTo.filter(function (index) {
+            return index == 0 || dateTo >= new Date($(this).children('td[name="tdDateTo"]').text());
+        }).show();
     });
-
 
 </script>
 <aside class="right-side">
@@ -221,10 +237,14 @@
                                 </table>
                             </div>
                             <div role="tabpanel" class="tab-pane" id="div_activities">
-                                <div class="form-group">
-                                    Date From: <input name="dateFrom" type="date" value="2016-01-01" /> |
-                                    Date To: <input name="dateTo" type="date" value="2017-01-01" />
+                                <br />    
+                                <div class="form-group" id="dates">
+                                    <label for="date1" class="control-label">Date From:</label>
+                                        <input class="form-inline" id="date1" name="dateFrom" type="date" value="2016-01-01" />
+                                    <label for="date2" class="control-label">Date To:</label> 
+                                        <input class="form-inline" id="date2" name="dateTo" type="date" value="2017-01-01" />
                                 </div>
+                                <hr />
                                 <table class="table table-hover">
                                     <tr>
                                         <th class="col-md-3">Project</th>
