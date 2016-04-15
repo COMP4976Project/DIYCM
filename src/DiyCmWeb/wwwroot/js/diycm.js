@@ -44,11 +44,11 @@ app.config(function ($routeProvider) {
         controller: 'homeController',
         title: 'All Sub-Categories'
     })
-    .when('/documents', {
-        templateUrl: 'views/documents/documents.html',
-        controller: 'documentsController',
-        title: 'All Documents'
-    })
+    // .when('/documents', {
+    //     templateUrl: 'views/documents/documents.html',
+    //     controller: 'documentsController',
+    //     title: 'All Documents'
+    // })
     .when('/login', {
         templateUrl: 'views/login.html',
         controller: 'loginController',
