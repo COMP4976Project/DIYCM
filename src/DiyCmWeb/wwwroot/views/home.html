@@ -2,7 +2,8 @@
     $('#myTabs a').click(function (e) {
         e.preventDefault()
         $(this).tab('show')
-    })</script>
+    })
+</script>
 <!-- Filter search for projects -->
 <script language="javascript" type="text/javascript">
     function filter(element) {
@@ -13,7 +14,35 @@
         condition.filter(function () {
             return $(this).text().toLowerCase().indexOf(value) > -1;
         }).show();
-}
+    }
+   
+    
+    $('[name="dateFrom"]').on("change", function () {
+        var dateFrom = new Date($(this).val());
+
+        var conditionDateFrom = $('td[name="tdDateFrom');
+
+        conditionDateFrom.parent().hide();
+        conditionDateFrom.filter(function () {
+            return dateFrom < new Date(conditionDateFrom.html());
+        }).parent().show();
+        
+    });
+
+
+    $('[name="dateTo"]').on("change", function () {
+        var dateTo = new Date($(this).val());
+
+        var conditionDateTo = $('td[name="tdDateTo');
+
+        conditionDateTo.hide();
+        conditionDateTo.filter(function () {
+            console.log(conditionDateTo.html());
+            return dateTo > new Date(conditionDateTo.html());
+        }).append();
+    });
+
+
 </script>
 <aside class="right-side">
     <section class="content">
@@ -94,9 +123,9 @@
                             <div role="tabpanel" class="tab-pane active" id="div_budget_actual">
                                 <table class="table table-hover">
                                     <tr>
-                                        <th class="col-md-7">Project</th>
-                                        <th class="col-md-3">Budget</th>
-                                        <th class="col-md-3">Actual</th>
+                                        <th class="col-md-1">Project</th>
+                                        <th class="col-md-1">Budget</th>
+                                        <th class="col-md-1">Actual</th>
                                     </tr>
                                     <tr name="filter" ng-repeat="p in tableProjects">
                                         <td>{{ p.ProjectName }}</td>
@@ -126,13 +155,13 @@
                             <div role="tabpanel" class="tab-pane" id="div_categories_details">
                                 <table class="table table-hover">
                                     <tr>
-                                        <th class="col-md-4">Project</th>
-                                        <th class="col-md-2">Category</th>
-                                        <th class="col-md-2">Budget</th>
-                                        <th class="col-md-2">Actual</th>
-                                        <th class="col-md-2">% Completed</th>
-                                        <th class="col-md-2">Part</th>
-                                        <th class="col-md-2">Unit Price</th>
+                                        <th class="col-md-2">Project</th>
+                                        <th class="col-md-1">Category</th>
+                                        <th class="col-md-1">Budget</th>
+                                        <th class="col-md-1">Actual</th>
+                                        <th class="col-md-1">% Completed</th>
+                                        <th class="col-md-1">Part</th>
+                                        <th class="col-md-1">Unit Price</th>
                                         <th class="col-md-2">Supplier</th>
                                     </tr>
                                     <tr name="filter" ng-repeat="cd in tableCategories">
@@ -150,7 +179,7 @@
                             <div role="tabpanel" class="tab-pane" id="div_subcategories_summary">
                                 <table class="table table-hover">
                                     <tr>
-                                        <th class="col-md-4">Project</th>
+                                        <th class="col-md-3">Project</th>
                                         <th class="col-md-2">Category</th>
                                         <th class="col-md-2">SubCategory</th>
                                         <th class="col-md-2">Budget</th>
@@ -170,13 +199,13 @@
                             <div role="tabpanel" class="tab-pane" id="div_subcategories_details">
                                 <table class="table table-hover">
                                     <tr>
-                                        <th class="col-md-4">Project</th>
-                                        <th class="col-md-2">Category</th>
-                                        <th class="col-md-2">SubCategory</th>
+                                        <th class="col-md-2">Project</th>
+                                        <th class="col-md-1">Category</th>
+                                        <th class="col-md-1">SubCategory</th>
                                         <th class="col-md-2">Part</th>
-                                        <th class="col-md-2">% Completed</th>
-                                        <th class="col-md-2">Unit Price</th>
-                                        <th class="col-md-2">% Discount</th>
+                                        <th class="col-md-1">% Completed</th>
+                                        <th class="col-md-1">Unit Price</th>
+                                        <th class="col-md-1">% Discount</th>
                                         <th class="col-md-2">Supplier</th>
                                     </tr>
                                     <tr name="filter" ng-repeat="scd in tableSubCategories">
@@ -192,21 +221,25 @@
                                 </table>
                             </div>
                             <div role="tabpanel" class="tab-pane" id="div_activities">
+                                <div class="form-group">
+                                    Date From: <input name="dateFrom" type="date" value="2016-01-01" /> |
+                                    Date To: <input name="dateTo" type="date" value="2017-01-01" />
+                                </div>
                                 <table class="table table-hover">
                                     <tr>
-                                        <th class="col-md-4">Project</th>
+                                        <th class="col-md-3">Project</th>
                                         <th class="col-md-2">Part</th>
                                         <th class="col-md-2">Area</th>
                                         <th class="col-md-2">Start</th>
                                         <th class="col-md-2">End</th>
-                                        <th class="col-md-2">Supplier</th>
+                                        <th class="col-md-3">Supplier</th>
                                     </tr>
                                     <tr name="filter" ng-repeat="a in tableActivities">
                                         <td>{{ a.ProjectName }}</td>
                                         <td>{{ a.PartDescription }}</td>
                                         <td>{{ a.AreaRoom }}</td>
-                                        <td>{{ a.StartDate | date:'longDate'}}</td>
-                                        <td>{{ a.ExpiryDate | date:'longDate'}}</td>
+                                        <td name="tdDateFrom">{{ a.StartDate | date:'longDate'}}</td>
+                                        <td name="tdDateTo">{{ a.ExpiryDate | date:'longDate'}}</td>
                                         <td>{{ a.Supplier }}</td>
                                     </tr>
                                 </table>
