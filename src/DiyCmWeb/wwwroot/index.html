@@ -138,12 +138,20 @@
     </div><!-- ./wrapper -->
 
     <div id="notifications-container" ng-controller="homeController" style="overflow-y: auto">
-        <h3 class="text-center" style="color:white;">Notifications</h3>
+        <h3 class="text-center" style="color:white;">
+            Notifications &nbsp;
+            <button type="button" class="btn btn-primary btn-sm" onClick="window.location.reload()">
+                <i class="fa fa-refresh" aria-hidden="true"></i>
+            </button>
+        </h3>
         <br>
+
         <button class="notifications-accordion">Projects - Over Budget</button>
         <div class="notifications-panel status-danger">
           <div ng-repeat="t in overBudgetProjects" ng-if="t.ActualAmount - t.BudgetAmount > 0">
-              {{t.ProjectName}}<br>
+              <a href="#/projects/{{t.ProjectId}}">{{t.ProjectName}}</a>
+              <br>
+
               <div style="padding-left: 2em">
                   <div style="color:red">Over by: ${{t.ActualAmount - t.BudgetAmount}}</div>
               </div>
@@ -154,7 +162,8 @@
         <button class="notifications-accordion">Projects - Close to Budget</button>
         <div class="notifications-panel status-warning">
             <div ng-repeat="t in overBudgetProjects" ng-if="t.ActualAmount / t.BudgetAmount >= 0.9 && t.ActualAmount / t.BudgetAmount <= 1">
-                {{t.ProjectName}}<br>
+                <a href="#/projects/{{t.ProjectId}}">{{t.ProjectName}}</a>
+                <br>
                 <div style="padding-left: 2em">
                     <div style="color:blue">Budget: ${{t.BudgetAmount}}</div>
                     <div style="color:green">Budget: ${{t.ActualAmount}}</div>
@@ -174,9 +183,16 @@
         <button class="notifications-accordion">Unaccepted Quotes</button>
         <div class="notifications-panel status-warning" >
             <div ng-repeat="q in tableQuotes" ng-if="q.IsAccept == 'N'">
-                {{q.ProjectName}}<br>
-                <div style="padding-left: 2em">
-                    <div style="color:blue">QuoteHeaderId: #{{q.QuoteHeaderId}}</div>
+                <div ng-repeat="qdet in tableQuotesDetails" ng-if="qdet.QuoteHeaderId == q.QuoteHeaderId">
+
+                    <div ng-repeat="subcat in tableSubCategories" ng-if="subcat.SubCategoryId == qdet.SubCategoryId">
+                        <br>
+                        <div style="padding-left: 2em">
+                            <div style="color:blue">
+                                <a href="#/projects/{{subcat.ProjectId}}">QuoteHeaderId: #{{q.QuoteHeaderId}}</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -245,10 +261,11 @@
             {// if not content of a notification
                 if (t.width() != 20) {
                     notifications = t.html(); // save html
-                    t.html(""); // clear
+                    t.html("&nbsp<i class='fa fa-arrow-left' aria-hidden='true' style='color:white; position:absolute; top:50%'></i>"); // clear
                     t.animate({ width: '20px' }, "slow"); // shrink
                 }
                 else {
+                    t.html(""); // clear
                     t.html(notifications); // restore html
                     t.animate({ width: '22%' }, "slow"); // grow
                 }

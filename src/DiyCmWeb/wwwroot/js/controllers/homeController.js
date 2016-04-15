@@ -17,6 +17,7 @@ app.controller('homeController', ['$scope', '$http', 'QuotesService', 'ReportsSe
     };
     var onGetAllSubCategories = function (data) {
         $scope.tableSubCategories = data;
+        console.log("SubCategories:");
         console.log($scope.tableSubCategories);
     };
     var onGetAllActivities = function (data) {
@@ -38,6 +39,12 @@ app.controller('homeController', ['$scope', '$http', 'QuotesService', 'ReportsSe
         console.log("QUOTES:");
         console.log(quotelist);
     };
+    
+    var getQuotesDetails = function(quotedetails){
+        $scope.tableQuotesDetails = quotedetails;
+        console.log("QUOTES Details:");
+        console.log(quotedetails);
+    };
 
     ReportsService.getAllProjectsBudgetActual()
         .then(onGetAllBudgetActual, onGetAllError);
@@ -51,4 +58,6 @@ app.controller('homeController', ['$scope', '$http', 'QuotesService', 'ReportsSe
         .then(getProjectsOverBudget, onGetAllError);
     QuotesService.getAllQuoteHeaders()
         .then(getAllQuotes, onGetAllError);
+    QuotesService.getAllQuoteDetails()
+        .then(getQuotesDetails, onGetAllError);
 }]);
