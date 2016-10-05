@@ -317,5 +317,6 @@ namespace DiyCmWebAPI.Controllers
         {
             return _context.SupplierInvoiceHeaders.Count(e => e.QuoteHeaderId == id) > 0;
         }
+
     }
 }
